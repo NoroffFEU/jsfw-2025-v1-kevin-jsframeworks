@@ -1,173 +1,137 @@
-# Pengwin Shop
+# PengWin Shop
 
-A modern e-commerce application built with [Next.js](https://nextjs.org), showcasing best practices in React development, state management, and API integration.
+PengWin Shop is a small e-commerce storefront built with Next.js, React, TypeScript, Tailwind CSS, and Zustand. It fetches products from the Noroff Online Shop API and includes product browsing, product details, a persistent shopping cart, checkout confirmation, toast notifications, and a validated contact form.
 
-## Overview
+## Tech stack
 
-Pengwin Shop is a full-featured e-commerce platform that demonstrates essential e-commerce functionality including product browsing, detailed product views, dynamic search, shopping cart management, and checkout flow.
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- Zustand
 
-## Getting Started
+## Features
+
+- Product listing fetched from the Noroff Online Shop API
+- Search by product title
+- Sorting by title, price, and rating
+- Product detail pages with image, price, tags, and reviews
+- Add to cart functionality
+- Cart quantity updates and item removal
+- Persistent cart state using Zustand `persist`
+- Checkout success flow
+- Contact form with client-side validation
+- Global loading, error, and not-found pages
+- Toast notifications for cart actions
+
+## Getting started
 
 ### Prerequisites
 
-- Node.js 16.x or later
-- npm, yarn, pnpm, or bun package manager
+Install Node.js and npm.
 
 ### Installation
 
-Clone the repository and install dependencies:
-
 ```bash
-git clone <repository-url>
-cd pengwin-shop
+git clone https://github.com/NoroffFEU/jsfw-2025-v1-kevin-jsframeworks.git
+cd jsfw-2025-v1-kevin-jsframeworks/pengwin-shop
 npm install
 ```
 
-### Development
-
-Run the development server:
+### Run locally
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open `http://localhost:3000` in your browser.
 
-## Features Implemented
+## Available scripts
 
-### Product Catalog
+```bash
+npm run dev    # Start the development server
+npm run build  # Create a production build
+npm run start  # Start the production server
+npm run lint   # Run ESLint
+```
 
-- ✅ Fetches products from `GET /online-shop` endpoint
-- ✅ Displays product information: title, image, price, discount, rating
-- ✅ Styled discount stickers for visual appeal
+## Routes
 
-### Product Details
+- `/` - Home page with product listing, search, and sorting
+- `/product/[id]` - Individual product page
+- `/cart` - Shopping cart
+- `/checkout/success` - Checkout confirmation page
+- `/contact` - Contact form
 
-- ✅ Dedicated product page accessible via `GET /online-shop/<id>`
-- ✅ Shows full product details: title, description, price, reviews, tags
-- ✅ "Add to Cart" button with toast notifications
-- ✅ Proper navigation from product list to details
+## API
 
-### Search Functionality
+The project uses the Noroff v2 API:
 
-- ✅ Dynamic real-time filtering as user types
+- `GET https://v2.api.noroff.dev/online-shop`
+- `GET https://v2.api.noroff.dev/online-shop/{id}`
 
-### Shopping Cart
+The API helper lives in `src/lib/api.ts`.
 
-- ✅ Item count indicator in header
-- ✅ Cart page displays products with prices and adjustable quantities
-- ✅ Remove item functionality with toast notifications
-- ✅ Accurate total cost calculation
-- ✅ Cart persistence across app using state management
+## State management
 
-### Checkout & Confirmation
+Cart state is handled with Zustand in `src/stores/cartStore.ts` and persisted in browser storage using the `persist` middleware.
 
-- ✅ Checkout button triggers success page
-- ✅ Success page displays confirmation message
-- ✅ Cart clears after successful checkout
+Toast notifications are handled in `src/stores/toastStore.ts` and rendered through `src/components/layout/toastNotification.tsx`.
 
-### Contact Page
-
-- ✅ Form validation for Full Name, Subject, Email, and Message
-- ✅ Clear error message display
-
-## Project Structure
+## Project structure
 
 ```
 pengwin-shop/
-├── app/                    # Next.js app directory
-│   ├── page.tsx           # Home page
-│   ├── layout.tsx         # Root layout
-│   ├── products/          # Product pages
-│   ├── cart/              # Shopping cart page
-│   ├── checkout/          # Checkout pages
-│   └── contact/           # Contact form page
-├── components/            # Reusable React components
-│   ├── Header.tsx         # Navigation header
-│   ├── ProductCard.tsx    # Product display component
-│   ├── Cart/              # Cart-related components
-│   └── ...
-├── hooks/                 # Custom React hooks
-│   └── useCart.ts         # Cart state management
-├── services/              # API services
-│   └── api.ts            # API endpoint functions
-├── public/                # Static assets
-└── README.md              # This file
+├── public/
+├── src/
+│   ├── app/
+│   │   ├── cart/
+│   │   │   └── page.tsx
+│   │   ├── checkout/
+│   │   │   └── success/
+│   │   │       └── page.tsx
+│   │   ├── contact/
+│   │   │   └── page.tsx
+│   │   ├── product/
+│   │   │   └── [id]/
+│   │   │       └── page.tsx
+│   │   ├── error.tsx
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   ├── loading.tsx
+│   │   ├── not-found.tsx
+│   │   └── page.tsx
+│   ├── assets/
+│   ├── components/
+│   │   ├── cart/
+│   │   ├── layout/
+│   │   └── products/
+│   ├── lib/
+│   │   └── api.ts
+│   ├── stores/
+│   │   ├── cartStore.ts
+│   │   └── toastStore.ts
+│   └── types/
+│       ├── cart.ts
+│       └── product.ts
+├── .gitignore
+├── eslint.config.mjs
+├── next.config.ts
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── tsconfig.json
+└── README.md
 ```
-
-## Key Technologies
-
-- **Next.js** - React framework for production with SSR and static generation
-- **React Hooks** - State management with `useState` and `useContext`
-- **CSS/Tailwind** - Responsive styling
-- **Toast Notifications** - User feedback for actions
-
-## Available Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm start` - Start production server
-- `npm run lint` - Run ESLint
-
-## API Integration
-
-The application integrates with the following endpoints:
-
-- `GET /online-shop` - Fetch all products
-- `GET /online-shop/<id>` - Fetch specific product details
-
-## State Management
-
-Cart state is persisted across the application using React Context and custom hooks, ensuring a seamless user experience even with page navigation.
-
-## Error Handling
-
-- API errors display user-friendly messages
-- Loading states provide visual feedback during data fetching
-- Form validation with clear error messages
-- Graceful fallbacks for missing data
-
-## Learn More
-
-- [Next.js Documentation](https://nextjs.org/docs)
-- [React Hooks Documentation](https://react.dev/reference/react)
-- [Next.js Deployment](https://nextjs.org/docs/app/building-your-application/deploying)
-
-## Version Control
-
-This project maintains frequent, descriptive commits documenting feature development and bug fixes.
-
-## License
-
-This project is licensed under the MIT License.
-
-## Support
-
-For questions or issues, please open an issue in the repository.
 
 ## Logo Usage
 
 Used the penguin logo as a placeholder logo for this assignment: https://pngtree.com/freepng/penguin-logo_5761077.html
 
-## AI Usage
+## AI usage
 
-Tool used: VSCode Copilot
-Date: 08 March 2026
-Purpose: Used to create a comprehensive README.md file for the project. And for placeholder text.
-Outcome: The generated text was reviewed and adjusted before being put in the final project.
+Tool used: VSCode Copilot Date: 08 March 2026 Purpose: Used to create a comprehensive README.md file for the project. And for placeholder text. Outcome: The generated text was reviewed and adjusted before being put in the final project.
 
-Tool used: ChatGpt and VSCode Copilot
-Date: 02-08 March 2026
-Purpose: Used for help with error handling ESLint errors and various other errors that popped up and for explaining Next.js concepts during development.
-Outcome: The suggestions and explanations were used for help and to make me have better understanding, I then manually reviewed, until I implemented it in the final project.
+Tool used: ChatGpt and VSCode Copilot Date: 02-08 March 2026 Purpose: Used for help with error handling ESLint errors and various other errors that popped up and for explaining Next.js concepts during development. Outcome: The suggestions and explanations were used for help and to make me have better understanding, I then manually reviewed, until I implemented it in the final project.
 
-Tool used: ChatGpt and VS Code Copilot
-Date: 08 March 2026
-Purpose: Used to help format the code and improve my code structure.
-Outcome: Made the code look cleaner and gave me a greater understanding of how to make cleaner better formated code, it was manually reviewed until I put it into the final project.
+Tool used: ChatGpt and VS Code Copilot Date: 08 March 2026 Purpose: Used to help format the code and improve my code structure. Outcome: Made the code look cleaner and gave me a greater understanding of how to make cleaner better formated code, it was manually reviewed until I put it into the final project.
