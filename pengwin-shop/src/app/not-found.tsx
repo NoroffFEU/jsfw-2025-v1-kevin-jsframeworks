@@ -9,7 +9,8 @@ export default function NotFound() {
         </h1>
 
         <p className="mt-3 text-slate-600">
-          The page you were looking for does not exist or is no longer available.
+          The page you were looking for does not exist or is no longer
+          available.
         </p>
 
         <Link
