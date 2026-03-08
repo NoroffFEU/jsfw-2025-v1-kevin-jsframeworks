@@ -151,6 +151,10 @@ This project is licensed under the MIT License.
 
 For questions or issues, please open an issue in the repository.
 
+## Logo Usage
+
+Used the penguin logo as a placeholder logo for this assignment: https://pngtree.com/freepng/penguin-logo_5761077.html
+
 ## AI Usage
 
 Tool used: VSCode Copilot
