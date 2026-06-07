@@ -24,6 +24,9 @@ PengWin Shop is a small e-commerce storefront built with Next.js, React, TypeScr
 - Global loading, error, and not-found pages
 - Toast notifications for cart actions
 
+## Deployed Website
+https://pengwinshop.netlify.app/
+
 ## Getting started
 
 ### Prerequisites
